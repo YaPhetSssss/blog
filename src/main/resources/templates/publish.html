@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Darkvilla</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
@@ -14,7 +14,8 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Darkvilla</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -29,7 +30,8 @@
                 <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Dropdown <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
@@ -48,7 +50,9 @@
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li th:if="${session.user == null}"><a href="/login">登录</a></li>
+                <li th:if="${session.user == null}"><a
+                        href="/login">登录</a>
+                </li>
                 <li class="dropdown" th:if="${session.user != null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">"用户名“<span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -64,25 +68,29 @@
 <div class="container-fluid main">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-            <h2><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>最近发布</h2><hr>
-            <div th:each="blogDTO : ${list}" class="media">
-                <div class="media-left">
-                    <a href="#">
-                        <img class="media-object img-rounded" th:src="${blogDTO.getAvatarUrl()}" alt="...">
-                    </a>
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+            <h2>发布</h2>
+            <hr>
+
+            <form action="/publish" method="post">
+                <div class="form-group">
+                    <label for="title">主题</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="博客主题"
+                           aria-describedby="sizing-addon1">
                 </div>
-                <div class="media-body">
-                    <h4 class="media-heading" th:text="${blogDTO.getTitle()}"></h4>
-                    <span class="text-desc">
-                        <span th:text="${blogDTO.description}"></span><br>
-                        <span th:text="${blogDTO.getViewCount()}"></span>次浏览
-                        <span th:text="${blogDTO.getCommentCount()}"></span>个评论
-                        <span th:text="${blogDTO.getLikeCount()}"></span>个点赞
-                    </span>
+                <div class="form-group">
+                        <textarea class="form-control" id="description" name="description" placeholder="在次输入内容"
+                                  cols="30" rows="10"></textarea>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="title">添加标签</label>
+                    <input type="text" class="form-control" id="tag" name="tag" placeholder="添加博客标签">
+                </div>
+                <div class="alert alert-danger col-lg-9 col-md-12 col-sm-12 col-xs-12" th:if="${error != null}" th:text="${error}"></div>
+                <button type="submit" class="btn btn-success btn-publish">发布</button>
+            </form>
         </div>
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style=""></div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" ></div>
     </div>
 </div>
 </body>
